@@ -1,0 +1,300 @@
+<% include layout/header %>
+
+	<!-- 页面主体部分 -->
+	<div id='main'>
+  <div id='sidebar'>
+    
+  <% if(user){ %>
+    <!-- 用户登录信息 -->
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">个人信息</span>
+    </div>
+    <div class="inner">
+      <div class="user_card">
+        <div>
+          <a class="user_avatar" href="/user/xdlnode">
+            <!-- 
+              用户的头像如果存在使用用户自定义的头像，如果不存在使用用户默认的头像ss
+            -->
+            <img src="/uploads/<%= user.userpic?user.userpic : 'default.png' %>" title="<%= user.username %>">
+          </a>
+          <span class="user_name"><a class="dark" href="/user/xdlnode"><%= user.username %></a></span>
+
+          <div class="board clearfix">
+            <div class="floor">
+              <span class="big">积分: <%= user.gold %> </span>
+            </div>
+          </div>
+          <div class="space clearfix"></div>
+          <span class="signature">
+              “
+              <% if(!user.mark){ %>
+                这个用户很懒，什么都没有留下....
+              <% }else{ %>
+              <%= user.mark %>
+              <% } %>
+              ”
+          </span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- 显示发表话题按钮 -->
+  <div class="panel">
+      <div class="inner">
+        <a href="/topic/create" id="create_topic_btn">
+          <span class="span-success">发布话题</span>
+        </a>
+      </div>
+  </div>
+  
+  <%}else{%>
+    <div class='panel'>
+    <div class='inner'>
+      <p>CNode：Node.js专业中文社区</p>
+
+      <div>
+        您可以
+        <a href='/signin'>登录</a>
+        或
+        <a href='/signup'>注册</a>
+        , 也可以
+        <a href="/auth/github">
+          <span class="span-info">
+            通过 GitHub 登录
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <%} %>
+  
+
+  
+    
+<div class='panel'>
+  <div class='inner ads'>
+
+    
+      
+      <a href="https://alinode.aliyun.com/?ref=cnode" target="_blank" class="banner sponsor_outlink"
+    data-label="alinode">
+        <img src="//dn-cnode.qbox.me/Fn4D6BhOTz1IswvmzeZ1q7QW1ls_">
+      </a>
+    
+      
+        <div class="sep10"></div>
+      
+      <a href="https://www.ucloud.cn/site/active/gift.html?utm_source=cnodejs&utm_medium=content_pic_pc&utm_campaign=kuai&utm_content=gift&ytag=cnodejs" target="_blank" class="banner sponsor_outlink"
+    data-label="ucloud-banner">
+        <img src="//dn-cnode.qbox.me/FnShQd73xj4HDHApe8umrioB9INR">
+      </a>
+    
+  </div>
+</div>
+
+  
+
+  
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>无人回复的话题</span>
+    </div>
+    <div class='inner'>
+      
+      <ul class="unstyled">
+        <% replyZeroData.forEach(function(item){ %>
+          <li>
+            <div><a class='dark topic_title' href="/topic/58afe6307872ea0864fee087" title="<%= item.topicname %>"><%= item.topicname %></a>
+            </div>
+          </li>
+        <% }) %>
+          
+
+      </ul>
+      
+    </div>
+  </div>
+  
+
+  
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>积分榜</span>
+      &nbsp;
+      <a class='dark' href='/users/top100'>TOP 100 &gt;&gt;</a>
+    </div>
+    <div class='inner'>
+      
+      <ol>
+        <% userData.forEach(function(item){ %>
+          <li>
+            <span class='top_score'><%= item.gold %></span>
+            <span class="user_name"><a href="/user/i5ting"><%= item.username %></a></span>
+          </li>
+        <%}) %>
+          
+      </ol>
+      
+    </div>
+  </div>
+  
+
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>友情社区</span>
+    </div>
+    <div class='inner'>
+      <ol class="friendship-community">
+        <li>
+          <a href="https://ruby-china.org/" target="_blank">
+            <img src="//o4j806krb.qnssl.com/public/images/ruby-china-20150529.png">
+          </a>
+        </li>
+        <div class="sep10"></div>
+        <li>
+          <a href="http://golangtc.com/" target="_blank">
+            <img src="//o4j806krb.qnssl.com/public/images/golangtc-logo.png">
+          </a>
+        </li>
+        <div class="sep10"></div>
+        <li>
+          <a href="http://phphub.org/" target="_blank">
+            <img src="//o4j806krb.qnssl.com/public/images/phphub-logo.png">
+          </a>
+        </li>
+        <div class="sep10"></div>
+        <li>
+          <a href="https://testerhome.com/" target="_blank">
+            <img src="//dn-cnode.qbox.me/FjLUc7IJ2--DqS706etPQ1EGajxK">
+          </a>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>客户端二维码</span>
+    </div>
+    <div class='inner cnode-app-download'>
+      <img width='200' src="//dn-cnode.qbox.me/FtG0YVgQ6iginiLpf9W4_ShjiLfU">
+      <br />
+      <a href="https://github.com/soliury/noder-react-native" target="_blank">客户端源码地址</a>
+    </div>
+  </div>
+
+</div>
+
+
+	<div id="content">
+		<div class="panel">
+			<!-- 顶部的话题分类 -->
+	    	<div class="header">
+	      
+		        <a href="/?tab=all"
+		          class="topic-tab current-tab">全部</a>
+		      
+		        <a href="/?tab=good"
+		          class="topic-tab ">精华</a>
+		      
+            <% typeData.forEach(function(item){ %>
+                <a href="/?tab=<%= item._id %>" class="topic-tab ">
+                  <%= item.typename %>
+                </a>
+            <%}) %>
+	    	</div>
+	    
+	    	<!-- 话题列表 -->
+		    <div class="inner no-padding">
+		    	<div id="topic_list">
+                    <% data.forEach(function(item){%>
+                        <div class='cell'>
+                            <!-- 头像 -->
+                            <a class="user_avatar pull-left" href="/user/indexzero">
+                                <img src="/uploads/<%= item.uid.userpic?item.uid.userpic:'default.png' %>"title="indexzero"/>
+                            </a>
+
+                            <span class="reply_count pull-left">
+                                <span class="count_of_replies" title="回复数"><%= item.reply.length %></span>
+                                <span class="count_seperator">/</span>
+                                <span class="count_of_visits" title='点击数'><%= item.viewnum %></span>
+                            </span>
+                            <a class='last_time pull-right' href="/topic/5886482f250bf4e2390e9f0d#58afd03fea21217a4486ccfe">
+                                <img class="user_small_avatar" src="https://avatars.githubusercontent.com/u/17840824?v=3&amp;s=120">
+                                <span class="last_active_time">2 小时前</span>
+                            </a>
+                            <div class="topic_title_wrapper">
+                                <!-- 
+                                  当前位置判断是否是
+                                    1. 是否是置顶 <span class="put_top">置顶</span>
+                                    2. 是否是加精 <span class="put_good">精华</span>
+                                    3. 该位置设置为分类
+                                -->
+                                
+                                <span class="topiclist-tab"><%= item.tid.typename %></span>
+                                <a class='topic_title' href='/topic/show/<%= item._id %>' title='<%= item.topicname %>'>
+                                    <%= item.topicname %>
+                                </a>
+                            </div>
+                        </div>
+                    <%}) %>
+                        
+
+				</div>
+
+				<div class='pagination' current_page='1'>
+					<ul>
+              <% if(page==1){%>
+                <li class='disabled'><a>«</a></li>
+              <%}else{%>
+                <li><a href="/?page=<%= page-1 %>">«</a></li>
+              <%} %>
+				  		
+				    <!-- 	<li class='disabled'><a>1</a></li> -->
+
+              <!-- 如果当前的页数-2 >= 1 说明前面还有页 -->
+              <% if(page-2>1){ %>
+                <li><a>...</a></li>
+              <%} %>
+
+              <% 
+                for(var i=page-2;i<=parseInt(page)+2;i++){ 
+                  if(i<1 || i>pageMax){
+                    // 跳过
+                    continue;
+                  }
+              %>
+                
+                <li <% if(i==page){ %> class="active" <%} %>><a href='/?page=<%= i %>'><%= i %></a></li>
+                  
+              <%} %>
+				    	
+              <!-- 如果pageMax-(page+2)>=1说明后面还有页数  -->
+              <% if(pageMax-(parseInt(page)+2)>=1){%>
+                <li><a>...</a></li>
+              <%} %>
+
+				    	<!-- <li><a href='/?tab=all&amp;page=3'>3</a></li>
+				    	<li><a href='/?tab=all&amp;page=4'>4</a></li>
+				    	<li><a href='/?tab=all&amp;page=5'>5</a></li> -->
+				    	
+				    	<% if(page==pageMax){%>
+                <li class='disabled'><a>»</a></li>
+              <%}else{%>
+                <li><a href="/?page=<%= parseInt(page)+1 %>">»</a></li>
+              <%} %>
+				  	</ul>
+				</div>
+	    	</div>
+	  	</div>
+	</div>
+
+</div>
+
+
+<!-- 加载公共底部部分 -->
+<% include layout/footer %>

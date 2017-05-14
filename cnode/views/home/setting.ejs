@@ -1,0 +1,109 @@
+<% include ../layout/header %>
+
+<!-- 基本的面板 -->
+<div id="main">
+  
+	<!-- 加载右侧的公共部分 -->
+	<% include ../layout/sidebar %>
+
+
+<div id="content">
+  <div class="panel">
+    <div class="header">
+      <ul class="breadcrumb">
+        <li><a href="/">主页</a><span class="divider">/</span></li>
+        <li class="active">设置</li>
+      </ul>
+    </div>
+    <div class="inner">
+      <!-- 错误信息验证 -->
+      <% if(errMsg.length){ %>
+        <div class="alert alert-danger fade in">
+          <button class="close" data-dismiss="alert"><span>&times;</span></button>
+          <%= errMsg.toString() %>
+        </div>
+      <% } %>      
+      <form id="setting_form" class="form-horizontal" action="/user/update" method="post" enctype="multipart/form-data">
+        <div class="control-group">
+          <label class="control-label" for="name">用户名</label>
+
+          <div class="controls">
+            <input class="input-xlarge readonly" id="name" name="name" size="30" readonly="true" value="<%= user.username %>" type="text">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="email">电子邮件</label>
+
+          <div class="controls">
+            <input class="input-xlarge readonly" id="email" name="email" size="30" readonly="true" value="<%= user.email %>" type="text">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="userpic">头像</label>
+
+          <div class="controls">
+          	<img src="/uploads/<%= user.userpic?user.userpic : 'default.png' %>" title="<%= user.username %>">
+          	<input type="file" name="userpic">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="gold">金币</label>
+
+          <div class="controls">
+            <input class="input-xlarge readonly" id="gold" name="gold" size="30" readonly="true" value="<%= user.gold %>" type="text">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="signature">个性签名</label>
+
+          <div class="controls">
+            <textarea class="input-xlarge" id="signature" name="mark" size="30"><%= user.mark %></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <input class="span-primary submit_btn" data-loading-text="保存中.." value="保存设置" type="submit">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">更改密码</span>
+    </div>
+    <div class="inner">
+      <form id="change_pass_form" class="form-horizontal" action="/updatepwd" method="post">
+        <div class="control-group">
+          <label class="control-label" for="old_pass">当前密码</label>
+
+          <div class="controls">
+            <input class="input-xlarge" id="old_pass" name="old_pass" size="30" type="password">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="new_pass">新密码</label>
+
+          <div class="controls">
+            <input class="input-xlarge" id="new_pass" name="new_pass" size="30" type="password">
+          </div>
+        </div>
+        <input id="action" name="action" value="change_password" type="hidden">
+        <input name="_csrf" value="yVwypIeL-_Npxg48G6rlu2zPowW35os1KlE8" type="hidden">
+
+        <div class="form-actions">
+          <input class="span-primary submit_btn" data-loading-text="更改中.." value="更改密码" type="submit">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+</div>
+
+
+</div>
+
+<% include ../layout/footer %>

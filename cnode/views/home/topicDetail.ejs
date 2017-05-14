@@ -1,0 +1,300 @@
+<% include ../layout/header %>
+
+<!-- 引入百度的富文本编辑器 -->
+<!-- 先加载配置文件 -->
+<script src="/js/ueditor/ueditor.config.js"></script>
+<script src="/js/ueditor/ueditor.all.min.js"></script>
+
+<!-- 引入语言包 -->
+<script src="/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!-- 主体区域 -->
+<div id="main">
+  <div id="sidebar">
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">作者</span>
+    </div>
+    <div class="inner">
+      <div class="user_card">
+  <div>
+    <a class="user_avatar" href="/user/WaitingforPu">
+      <img src="/uploads/<%= data.uid.userpic?data.uid.userpic:'default.png' %>" title="WaitingforPu">
+    </a>
+    <span class="user_name"><a class="dark" href="/user/WaitingforPu"><%= data.uid.username %></a></span>
+
+    <div class="board clearfix">
+      <div class="floor">
+        <span class="big">积分: <%= data.uid.gold %> </span>
+      </div>
+    </div>
+    <div class="space clearfix"></div>
+    <span class="signature">
+        “
+        
+            <%= data.uid.mark %>
+        
+        ”
+    </span>
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
+
+  
+    
+<div class="panel">
+  <div class="inner ads">
+
+    
+      
+      <a href="https://www.ucloud.cn/site/active/gift.html?utm_source=cnodejs&amp;utm_medium=content_pic_pc&amp;utm_campaign=kuai&amp;utm_content=gift&amp;ytag=cnodejs" target="_blank" class="banner sponsor_outlink" data-label="ucloud-banner">
+        <img src="//dn-cnode.qbox.me/FnShQd73xj4HDHApe8umrioB9INR">
+      </a>
+    
+      
+        <div class="sep10"></div>
+      
+      <a href="https://alinode.aliyun.com/?ref=cnode" target="_blank" class="banner sponsor_outlink" data-label="alinode">
+        <img src="//dn-cnode.qbox.me/Fn4D6BhOTz1IswvmzeZ1q7QW1ls_">
+      </a>
+    
+  </div>
+</div>
+
+  
+
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">作者其它话题</span>
+    </div>
+    <div class="inner">
+      
+      <p>无</p>
+      
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">无人回复的话题</span>
+    </div>
+    <div class="inner">
+      
+      <ul class="unstyled">
+        <li>
+  <div><a class="dark topic_title" href="/topic/58b7c5655b904b25651b3ab1" title="求react测试方法">求react测试方法</a>
+  </div>
+</li>
+<li>
+  <div><a class="dark topic_title" href="/topic/58b6a5245b904b25651b3a40" title="sqlite3设置用户名为唯一字段，用sqlite3模块写入重复用户名时报错杀进程，这种情况应该怎么处理？">sqlite3设置用户名为唯一字段，用sqlite3模块写入重复用户名时报错杀进程，这种情况应该怎么处理？</a>
+  </div>
+</li>
+<li>
+  <div><a class="dark topic_title" href="/topic/58b67d9aea21217a4486ce93" title="只是做一下测试。。。。。">只是做一下测试。。。。。</a>
+  </div>
+</li>
+<li>
+  <div><a class="dark topic_title" href="/topic/58b678b47872ea0864fee215" title="sqlite3模块插入数据库为什么一直提示无法打开数据库 已解决是数据库文件路径的问题">sqlite3模块插入数据库为什么一直提示无法打开数据库 已解决是数据库文件路径的问题</a>
+  </div>
+</li>
+<li>
+  <div><a class="dark topic_title" href="/topic/58b667347872ea0864fee202" title="github  第三方登录">github  第三方登录</a>
+  </div>
+</li>
+
+      </ul>
+      
+    </div>
+  </div>
+</div>
+
+<div id="content">
+  <div class="panel">
+    <div class="header topic_header">
+      <span class="topic_full_title">
+      	<%= data.topicname %>
+      </span>
+      <div class="changes">
+        <span>
+        	<!-- 自己找模块，进行时间判断 -->
+          发布于 3 天前
+        </span>
+        <span>
+          作者 <a href="/user/WaitingforPu"><%= data.uid.username %></a>
+        </span>
+        <span>
+          <%= data.viewnum %> 次浏览
+        </span>
+        
+        
+          <span> 来自 <%= data.tid.typename %></span>
+        
+        <!-- 
+            1. 用户不登录是不显示收藏或者是取消收藏按钮 
+            2. 判断当前登录的用户是否已经收藏了该话题
+                // 判断一个值是否在数组中 indexOf
+        -->
+        <% if(user){ %>
+            <% 
+                if(data.collect.indexOf(user._id)!=-1){
+            %>
+                <button id="collect" _id="<%= data._id %>" style="margin-top:-3px;" class="span-common pull-right collect_btn">取消收藏</button>
+            <%
+                }else{
+            %>
+                <button id="collect" _id="<%= data._id %>" style="margin-top:-3px;" class="span-common span-success pull-right collect_btn">收藏</button>
+            <%
+                } 
+            %>
+           
+        <%} %> 
+      </div>
+        <%
+            if(user){         
+                if(user.level==1 || user._id == data.uid._id){
+        %>   
+                    <div id="manage_topic">
+                        <!-- <a href="/topic/58bd2474534823330afed8ee/edit"> -->
+                        <span class="glyphicon glyphicon-edit" style="margin-left:10px"></span>
+                        <!-- </a> -->
+                        <!-- <a href="javascript:;" data-id="58bd2474534823330afed8ee" class="delete_topic_btn"> -->
+                        <!--  <i class="fa fa-lg fa-trash" title="删除"></i></a> -->
+                        <span id="remove" class="glyphicon glyphicon-trash" style="margin-left:10px"></span>
+                    <!-- </a> -->
+                    </div>
+        <%
+                }
+            }
+        %>
+
+    </div>
+    <div class="inner topic">
+
+      <div class="topic_content">
+        <div class="markdown-text">
+        	<!-- 
+				ejs模板中
+				=默认将html的标签全部转义，正常显示
+				-不会转义标签
+        	 -->
+        	<%- data.content %>
+		</div>
+      </div>
+    </div>
+  </div>
+  
+  <% if(data.reply.length){ %>
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade"><%= data.reply.length %> 回复</span>
+    </div>
+    <% replyData.forEach(function(item){%>
+    <div class="cell reply_area reply_item
+  " reply_id="58b39879e418a986315f394d" reply_to_id="" id="58b39879e418a986315f394d">
+  <div class="author_content">
+    <a href="/user/lingdianjiyi" class="user_avatar">
+      <img src="/uploads/<%= item.uid.userpic?item.uid.userpic : 'default.png' %>" title="lingdianjiyi"></a>
+
+    <div class="user_info">
+      <a class="dark reply_author" href="/user/lingdianjiyi"><%= item.uid.username %></a>
+      <a class="reply_time" href="#58b39879e418a986315f394d"><%= item.floor %>楼•3 天前</a>
+    </div>
+    <div class="user_action">
+      <span>
+        <!-- 设置点赞的图标的样式 -->
+            <style>
+                .like{
+                    color:red
+                }
+            </style>
+           <span class="glyphicon glyphicon-heart" ></span>
+   
+        <span class="up-count">
+          2
+        </span>
+      </span>
+      
+      <span>
+
+      </span>
+    </div>
+  </div>
+  <div class="reply_content from-lingdianjiyi">
+    <div class="markdown-text">
+      <%- item.content %>
+</div>
+  </div>
+  <div class="clearfix">
+    <div class="reply2_area">
+      
+    </div>
+  </div>
+</div>
+<%}) %>
+
+  </div>
+  <%} %>
+  
+  <% if(user){%>
+      <div class="panel">
+    <div class="header">
+      <span class="col_fade">添加回复</span>
+    </div>
+    <div class="inner reply">
+      <form id="reply_form" action="/topic/reply" method="post">
+        <!-- 隐藏传递话题的_id -->
+        <input type="hidden" name="tid" value="<%= data._id %>">
+        <div class="markdown_editor in_editor">
+          <div class="markdown_in_editor">
+            <textarea name="content" id="editor" style="height:300px"></textarea>
+
+            <div class="editor_buttons">
+              <input class="span-primary submit_btn" data-loading-text="回复中.." value="回复" type="submit">
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <%} %>
+  
+</div>
+
+<script>
+    // 收藏按钮的Ajax请求
+    $('#collect').click(function(){
+        var _id = $(this).attr('_id');
+        // console.log(_id);
+        // 发送请求,携带该话题的_id的值
+        $.get('/topic/collect',{_id:_id},function(msg){
+            // 判断是否登录了
+            if(msg=='nologin'){
+                alert('请登录!');
+                window.location.href="/user/login"
+            }else if(msg=='removeOk'){
+                // 取消收藏成功
+                $('#collect').addClass('span-success');
+                $('#collect').html('收藏');
+            }else if(msg=='collectOk'){
+                // 收藏成功
+                $('#collect').removeClass('span-success');
+                $('#collect').html('取消收藏');
+            }
+        })
+    })
+</script>
+
+
+<script>
+  // 实例化编辑器 -- 该位置的editor就是上面的文本域的id
+  var ue = UE.getEditor('editor');
+</script>
+
+</div>
+
+<% include ../layout/footer %>

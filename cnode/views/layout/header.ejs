@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CNode：Node.js专业中文社区</title>
+
+	<!-- 加载css文件 -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/jquery.atwho.css">
+	<link rel="stylesheet" href="/css/responsive.css">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- 引入js -->
+	<script src="/js/jquery-2.1.0.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!-- 顶部导航条 -->
+	<div class='navbar'>
+	  <div class='navbar-inner'>
+	    <div class='container'>
+	      <a class='brand' href='/'>
+	        
+	          <img src="//o4j806krb.qnssl.com/public/images/cnodejs_light.svg" />
+	        
+	      </a>
+
+	      <form id='search_form' class='navbar-search' action="/search">
+	        <input type='text' id='q' name='q' class='search-query span3' value=''/>
+	      </form>
+	      <ul class='nav pull-right'>
+	        <li><a href='/'>首页</a></li>
+	        
+	        <li><a href='/getstart'>新手入门</a></li>
+	        <li><a href='/api'>API</a></li>
+	        
+	        <li><a href="/about" target="">关于</a></li>
+	        
+	        <!--  
+				用户登录之后，显示退出按钮，未登录显示注册、登录按钮
+	         -->
+	        <% if(user){ %>
+				<li><a href='/user/setting'>设置</a></li>
+				<li><a href='/user/logout'>退出</a></li>
+	        <%}else{%>
+				<li><a href='/user/reg'>注册</a></li>
+	        	<li><a href='/user/login'>登录</a></li>
+	        <%}%>	        
+	      </ul>
+	      <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </a>
+	    </div>
+	  </div>
+	</div>
